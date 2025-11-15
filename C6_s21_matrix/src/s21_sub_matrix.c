@@ -1,0 +1,19 @@
+#include "s21_matrix.h"
+
+int s21_sub_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
+  int _return = INCORRECT_MATRIX;
+  if (validate_matrix(A) == OK && validate_matrix(B) == OK && result) {
+    if (A->columns == B->columns && A->rows == B->rows) {
+      _return = s21_create_matrix(A->rows, A->columns, result);
+      if (_return == OK) {
+        for (int i = 0; i < A->rows; i++) {
+          for (int j = 0; j < A->columns; j++) {
+            result->matrix[i][j] = A->matrix[i][j] - B->matrix[i][j];
+          }
+        }
+      }
+    } else
+      _return = CALCULATION_ERROR;
+  }
+  return _return;
+}
